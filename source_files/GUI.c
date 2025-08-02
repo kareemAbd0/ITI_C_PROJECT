@@ -1,7 +1,103 @@
-#include <stdio.h>
-#include <conio.h>
-#include <windows.h>
 #include "../headers/GUI.h"
+//#include <conio.h>
+#include <stdio.h>
+#include <windows.h>
+
+
+const char* start_menu[] = {
+    "Login",
+    "Sign up",
+    "Exit",
+};
+
+const char* login_screen[] = {
+    "Username:",
+    "Password:",
+    "back",
+};
+
+const char* Sign_up_screen[] = {
+    "Username:",
+    "Password:",
+    "Repeat password:",
+    "back",
+};
+
+const char* Admin_main_screen[] = {
+    "add book",
+    "delete book",
+    "Search",
+    "back",
+};
+
+const char* User_main_screen[] = {
+    "borrow book",
+    "return book",
+    "Search",
+    "back",
+};
+
+const char* Book_List_Screen[] = {
+    "book1",
+    "book2",
+    "book3",
+    "back",
+};
+
+const char* Return_List_Screen[] = {
+    "book1",
+    "book2",
+    "book3",
+    "back",
+};
+const char* book_properties_Screen[] = {
+    "ISBM:",
+    "Title:",
+    "Auther:",
+    "Public share:",
+    "Number of copies:",
+    "back",
+};
+
+
+
+const char* empty_array[]={" "};
+
+
+
+const char* Are_you_sure[] =
+{
+    "Yes",
+    "No"
+};
+
+/*************messages***************/
+
+const char* Hi_message [] =
+{
+    "Hi Mohamed",
+    "          "
+} ;
+const char* Are_You_sure_noselection [] =
+{
+    "You have three days.",
+    "Are you sure?",
+    "  ","   "
+} ;
+const char* Return_message[] = {
+    "thank you",
+    "","","",
+    "you are late",
+};
+
+const char* Books_number_message[] = {
+    "Number of books",
+    "",""
+}; /*if books are added or deleted*/
+
+
+
+
 void gotoxy(int x, int y) {
     COORD coord = {0, 0};
     coord.X = x;
@@ -65,8 +161,8 @@ int display_combined_box(const char* static_lines[], int static_count, const cha
             printf(" %d] %-*s", i + 1, content_width - 5, options[i]);
         }
 
-        ch = getch();
-        if (ch == -32) ch = getch();
+        ch = getchar();
+        if (ch == -32) ch = getchar();
 
         if (ch == 72) {  // Up
             pos--;
@@ -80,28 +176,6 @@ int display_combined_box(const char* static_lines[], int static_count, const cha
 
     SetConsoleTextAttribute(console, 15);
     return pos;
-}
-
-
-int main(void) {
-    int selection = display_combined_box(
-        Hi_message,
-        sizeof(Hi_message) / sizeof(Hi_message[0]),
-        Admin_main_screen,
-        sizeof(Admin_main_screen) / sizeof(Admin_main_screen[0])
-    );
-
-    /** for only messages */
-    /*int selection = display_combined_box(
-        Return_message,
-        sizeof(Return_message) / sizeof(Return_message[0]),
-        empty_array,
-        0
-    );*/
-    gotoxy(40, 17);
-    printf("You selected option %d: %s\n", selection, Admin_main_screen[selection - 1]);
-
-    return 0;
 }
 
 
