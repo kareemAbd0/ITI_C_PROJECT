@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <conio.h>
 #include <windows.h>
-#include "GUI.h"
+#include "../headers/GUI.h"
 void gotoxy(int x, int y) {
     COORD coord = {0, 0};
     coord.X = x;
