@@ -1,5 +1,5 @@
 #include "../headers/GUI.h"
-//#include <conio.h>
+#include <conio.h>
 #include <stdio.h>
 #include <windows.h>
 
@@ -161,8 +161,8 @@ int display_combined_box(const char* static_lines[], int static_count, const cha
             printf(" %d] %-*s", i + 1, content_width - 5, options[i]);
         }
 
-        ch = getchar();
-        if (ch == -32) ch = getchar();
+        ch = getch();
+        if (ch == -32) ch = getch();
 
         if (ch == 72) {  // Up
             pos--;
