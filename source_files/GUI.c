@@ -13,6 +13,7 @@ const char* start_menu[] = {
 const char* login_screen[] = {
     "Username:",
     "Password:",
+    "Enter",
     "back",
 };
 
