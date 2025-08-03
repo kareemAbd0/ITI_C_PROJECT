@@ -10,20 +10,20 @@ int main(void) {
     read_borrowed_books_file();
 
     Book b = {"2","Programming","Mazen","2025",1};
-    add_book(&b);
+    book_add(&b);
 
     Borrowed_book br = {"491817892","300",5};
-    add_borrowed_book(&br);
+    borrowed_book_add(&br);
 
     Users u = {"400","Karim","123456",1};
-    add_user(&u);
+    user_add(&u);
 
-    delete_user("300");
+    user_delete("100");
 
-    delete_book(b.isbn);
+    book_delete(b.isbn);
 
-    delete_borrowed_book(&br);
-    
+    borrowed_book_delete(&br);
+
     write_endline_file("data\\users.txt","500,Youssef,123456,user");
     return 0;
 }
