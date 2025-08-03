@@ -20,9 +20,22 @@ Borrowed_book borrowed_books_data[MAX_BORROWED_BOOKS];
 
 char* convert_lower(char* str);
 
-int write_endline_file(char *filename, char **string, int size)
+int write_endline_file(char *filename, char *string)
 {
-    return 0;
+    FILE* file = fopen(filename, "a+");
+    if (file == NULL)
+    {
+        printf("Could not open file for writing\n");
+        return -1;
+    }
+
+    fseek(file, 0, SEEK_END);
+
+    fprintf(file, "%s\n", string);
+    
+    fclose(file);
+
+    return 1;
 }
 
 int write_users_file()
