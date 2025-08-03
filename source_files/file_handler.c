@@ -21,7 +21,7 @@ Borrowed_book borrowed_books_data[MAX_BORROWED_BOOKS];
 char* convert_lower(char* str);
 
 
-int add_user(Users* user)
+int user_add(Users* user)
 {
 
     if(user_count >= MAX_ACCOUNTS)
@@ -35,7 +35,7 @@ int add_user(Users* user)
     return write_endline_user_file();
 }
 
-int delete_user(char* id)
+int user_delete(char* id)
 {
     int deleted_user_index = -1;
     for(int i = 0; i < user_count; i++)
@@ -63,7 +63,7 @@ int delete_user(char* id)
     }
 }
 
-int add_book(Book* book)
+int book_add(Book* book)
 {
     if (book_count >= MAX_BOOKS)
     {
@@ -75,7 +75,7 @@ int add_book(Book* book)
     return write_endline_book_file();
 }
 
-int delete_book(char* isbn)
+int book_delete(char* isbn)
 {
     int deleted_book_index = -1;
     for (int i = 0; i < book_count; i++)
@@ -102,7 +102,7 @@ int delete_book(char* isbn)
     }
 }
 
-int add_borrowed_book(Borrowed_book* borrowed_book)
+int borrowed_book_add(Borrowed_book* borrowed_book)
 {
     if (borrowed_book_count >= MAX_BORROWED_BOOKS)
     {
@@ -114,7 +114,7 @@ int add_borrowed_book(Borrowed_book* borrowed_book)
     return write_endline_borrowed_book_file();
 }
 
-int delete_borrowed_book(Borrowed_book* borrowed_book)
+int borrowed_book_delete(Borrowed_book* borrowed_book)
 {
     int deleted_index = -1;
 
@@ -371,11 +371,9 @@ int read_users_file()
 {
     FILE* user_file;
     int read;
-    unsigned int len;
-    char* line = NULL;
+    char line[1024];
 
     read = 0;
-    len = 0;
 
     user_file = fopen("data\\users.txt","r");
     if(user_file == NULL)
@@ -397,7 +395,7 @@ int read_users_file()
             return -1;
         }
         rewind(user_file);
-        while ((read = getline(&line, &len, user_file)) != -1)
+        while (fgets(line, sizeof(line), user_file) != NULL)
         {
             int element_no = 1;
             int string_index = 0;
@@ -496,11 +494,9 @@ int read_books_file()
 {
     FILE* book_file;
     int read;
-    unsigned int len;
-    char* line = NULL;
+    char line[1024];
 
     read = 0;
-    len = 0;
 
     book_file = fopen("data\\books.txt","r");
     if(book_file == NULL)
@@ -521,7 +517,7 @@ int read_books_file()
             return -1;
         }
         rewind(book_file);
-        while ((read = getline(&line, &len, book_file)) != -1)
+        while (fgets(line, sizeof(line), book_file) != NULL)
         {
             int element_no = 1;
             int string_index = 0;
@@ -616,11 +612,9 @@ int read_borrowed_books_file()
 {
     FILE* borrowed_book_file;
     int read;
-    unsigned int len;
-    char* line = NULL;
+    char line[1024];
 
     read = 0;
-    len = 0;
 
     borrowed_book_file = fopen("data\\borrowed_books.txt","r");
     if(borrowed_book_file == NULL)
@@ -642,7 +636,7 @@ int read_borrowed_books_file()
             return -1;
         }
         rewind(borrowed_book_file);
-        while ((read = getline(&line, &len, borrowed_book_file)) != -1)
+        while (fgets(line, sizeof(line), borrowed_book_file) != NULL)
         {
             int element_no = 1;
             int string_index = 0;
