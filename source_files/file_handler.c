@@ -20,6 +20,233 @@ Borrowed_book borrowed_books_data[MAX_BORROWED_BOOKS];
 
 char* convert_lower(char* str);
 
+
+int add_user(Users* user)
+{
+
+    if(user_count >= MAX_ACCOUNTS)
+    {
+        return -1;
+    }
+
+    user_data[user_count++] = *user;
+
+
+    return write_endline_user_file();
+}
+
+int delete_user(char* id)
+{
+    int deleted_user_index = -1;
+    for(int i = 0; i < user_count; i++)
+    {
+        if(strcmp(id,user_data[i].id) == 0)
+        {
+            deleted_user_index = i;
+            break;
+        }
+    }
+
+    /*could not find id*/
+    if(deleted_user_index == -1)
+    {
+        return -1;
+    }
+    else
+    {
+        for(int i = deleted_user_index; i < user_count - 1; i++)
+        {
+            user_data[i] = user_data[i + 1];
+        }
+        user_count--;
+        return write_users_file();
+    }
+}
+
+int add_book(Book* book)
+{
+    if (book_count >= MAX_BOOKS)
+    {
+        return -1;
+    }
+
+    book_data[book_count++] = *book;
+
+    return write_endline_book_file();
+}
+
+int delete_book(char* isbn)
+{
+    int deleted_book_index = -1;
+    for (int i = 0; i < book_count; i++)
+    {
+        if (strcmp(isbn, book_data[i].isbn) == 0)
+        {
+            deleted_book_index = i;
+            break;
+        }
+    }
+
+    if (deleted_book_index == -1)
+    {
+        return -1;
+    }
+    else
+    {
+        for (int i = deleted_book_index; i < book_count - 1; i++)
+        {
+            book_data[i] = book_data[i + 1];
+        }
+        book_count--;
+        return write_books_file();
+    }
+}
+
+int add_borrowed_book(Borrowed_book* borrowed_book)
+{
+    if (borrowed_book_count >= MAX_BORROWED_BOOKS)
+    {
+        return -1;
+    }
+
+    borrowed_books_data[borrowed_book_count++] = *borrowed_book;
+
+    return write_endline_borrowed_book_file();
+}
+
+int delete_borrowed_book(Borrowed_book* borrowed_book)
+{
+    int deleted_index = -1;
+
+    for (int i = 0; i < borrowed_book_count; i++)
+    {
+        if (strcmp(borrowed_book->isbn, borrowed_books_data[i].isbn) == 0 &&
+            strcmp(borrowed_book->borrower_id, borrowed_books_data[i].borrower_id) == 0)
+        {
+            deleted_index = i;
+            break;
+        }
+    }
+
+    if (deleted_index == -1)
+    {
+        return -1;
+    }
+
+    for (int i = deleted_index; i < borrowed_book_count - 1; i++)
+    {
+        borrowed_books_data[i] = borrowed_books_data[i + 1];
+    }
+
+    borrowed_book_count--;
+    return write_borrowed_books_file();
+}
+
+int write_endline_user_file()
+{
+    FILE* user_file = fopen("data\\users.txt", "a+");
+    if (user_file == NULL)
+    {
+        printf("Could not open users file for writing\n");
+        return -1;
+    }
+
+    fseek(user_file, 0, SEEK_END);
+
+    int i = user_count - 1;
+
+    char admin[20];
+    if(user_data[i].is_admin == 1)
+    {
+        strcpy(admin,"admin");
+    }
+    else
+    {
+        strcpy(admin,"user");
+    }
+    fprintf(user_file, "%s,%s,%s,%s\n",
+        user_data[i].id,
+        user_data[i].username,
+        user_data[i].password,
+        admin);
+
+    
+    fclose(user_file);
+
+    return 1;
+
+}
+
+int write_endline_book_file()
+{
+    FILE* book_file = fopen("data\\books.txt", "a+");
+    if (book_file == NULL)
+    {
+        printf("Could not open books file for writing\n");
+        return -1;
+    }
+
+    fseek(book_file, 0, SEEK_END);
+
+    int i = book_count - 1;
+    fprintf(book_file, "%s,%s,%s,%s,%d\n",
+        book_data[i].isbn,
+        book_data[i].title,
+        book_data[i].author,
+        book_data[i].published_year,
+        book_data[i].number_copies);
+
+    fclose(book_file);
+    return 1;
+}
+
+int write_endline_borrowed_book_file()
+{
+    FILE* borrowed_book_file = fopen("data\\borrowed_books.txt", "a+");
+    if (borrowed_book_file == NULL)
+    {
+        printf("Could not open borrowed_books file for writing\n");
+        return -1;
+    }
+
+    fseek(borrowed_book_file, 0, SEEK_END);
+
+    int i = borrowed_book_count - 1;
+    char day[20];
+    switch(borrowed_books_data[i].borrowed_day)
+    {
+        case 0:
+            strcpy(day, "Sunday");
+            break;
+        case 1:
+            strcpy(day, "Monday");
+            break;
+        case 2:
+            strcpy(day, "Tuesday");
+            break;
+        case 3:
+            strcpy(day, "Wednesday");
+            break;
+        case 4:
+            strcpy(day, "Thursday");
+            break;
+        case 5:
+            strcpy(day, "Friday");
+            break;
+        case 6:
+            strcpy(day, "Saturday");
+            break;
+    }
+    fprintf(borrowed_book_file, "%s,%s,%s\n",
+        borrowed_books_data[i].isbn,
+        borrowed_books_data[i].borrower_id,
+        day);
+
+    fclose(borrowed_book_file);
+    return 1;
+}
+
+
 int write_endline_file(char *filename, char *string)
 {
     FILE* file = fopen(filename, "a+");
