@@ -6,15 +6,15 @@
 #define ACCOUNTS_H
 #include "file_handler.h"
 
+#define STRING_SIZE 20
 
-//searches if the user exists in the runtime array,checks password, goes to gui user menu if user and gui admin if admin
-int login(Users *my_user_data);
 
-//will add user to the runtime array, if the user already exists it will return -1, retruns to main menu upon success
-int sign_up(Users *my_user_data);
+//searches if the user exists in the runtime array,checks password, returns 1 if admin 0 if user -1 if not found
+int login();
 
-//helper function to check if the user is admin or not
-int is_admin(Users *my_user_data);
+//will add user to the runtime array, if the user already exists it will return -1, return 0 if succsess
+int sign_up();
+
 
 
 
