@@ -9,7 +9,9 @@
 #define MAX_BOOKS 100
 #define MAX_BORROWED_BOOKS 100
 
+
 struct Users {
+    char id[20];
     char username[20];
     char password[20];
     int is_admin; // 1 for admin, 0 for user
@@ -19,14 +21,15 @@ struct Book {
     char isbn[20];
     char title[50];
     char author[50];
-    char publisher_year[4];
+    char published_year[5];
+    int number_copies;
 }typedef Book;
 
-struct Borowwed_book {
+struct Borrowed_book {
     char isbn[20];
     char borrower_id[20];
     int borrowed_day; // day of the week, 0-6 (0=Sunday, 1=Monday, ..., 6=Saturday)
-}typedef Borowwed_book;
+}typedef Borrowed_book;
 
 
 
@@ -36,11 +39,27 @@ extern int borrowed_book_count;
 
 extern Users user_data[MAX_ACCOUNTS];
 extern Book book_data[MAX_BOOKS];
-extern Borowwed_book borrowed_books_data[MAX_BORROWED_BOOKS];
+extern Borrowed_book borrowed_books_data[MAX_BORROWED_BOOKS];
 
+
+int user_add(Users* user);
+
+int user_delete(char* id);
+
+int book_add(Book* book);
+
+int book_delete(char* isbn);
+
+int borrowed_book_add(Borrowed_book* borrowed_book);
+
+int borrowed_book_delete(Borrowed_book* borrowed_book);
 
 //add al the last element of array to the last line of text file
-int  write_endline_file(char *filename, char **string,int size);
+int  write_endline_file(char *filename, char *string);
+
+int write_endline_user_file();
+int write_endline_book_file();
+int write_endline_borrowed_book_file();
 
 int write_users_file();
 int write_books_file();
