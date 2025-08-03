@@ -42,17 +42,17 @@ extern Book book_data[MAX_BOOKS];
 extern Borrowed_book borrowed_books_data[MAX_BORROWED_BOOKS];
 
 
-int add_user(Users* user);
+int user_add(Users* user);
 
-int delete_user(char* id);
+int user_delete(char* id);
 
-int add_book(Book* book);
+int book_add(Book* book);
 
-int delete_book(char* isbn);
+int book_delete(char* isbn);
 
-int add_borrowed_book(Borrowed_book* borrowed_book);
+int borrowed_book_add(Borrowed_book* borrowed_book);
 
-int delete_borrowed_book(Borrowed_book* borrowed_book);
+int borrowed_book_delete(Borrowed_book* borrowed_book);
 
 //add al the last element of array to the last line of text file
 int  write_endline_file(char *filename, char *string);
