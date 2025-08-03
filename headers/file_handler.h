@@ -43,7 +43,7 @@ extern Borrowed_book borrowed_books_data[MAX_BORROWED_BOOKS];
 
 
 //add al the last element of array to the last line of text file
-int  write_endline_file(char *filename, char **string,int size);
+int  write_endline_file(char *filename, char *string);
 
 int write_users_file();
 int write_books_file();
