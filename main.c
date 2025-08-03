@@ -12,8 +12,8 @@ int main(void) {
     // Borrowed_book br = {"491817892","300",5};
     // borrowed_books_data[borrowed_book_count++] = br;
     write_borrowed_books_file();
-    Users u = {"400","Karim","123456",1};
-    user_data[user_count++] = u;
+    // Users u = {"400","Karim","123456",1};
+    // user_data[user_count++] = u;
     write_users_file();
     // read_books_file();
     return 0;
