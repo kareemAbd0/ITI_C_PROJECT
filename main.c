@@ -12,9 +12,10 @@ int main(void) {
     // Borrowed_book br = {"491817892","300",5};
     // borrowed_books_data[borrowed_book_count++] = br;
     write_borrowed_books_file();
-    // Users u = {"400","Karim","123456",1};
-    // user_data[user_count++] = u;
+    Users u = {"400","Karim","123456",1};
+    user_data[user_count++] = u;
     write_users_file();
     // read_books_file();
+    write_endline_file("data\\users.txt","500,Youssef,123456,user");
     return 0;
 }
