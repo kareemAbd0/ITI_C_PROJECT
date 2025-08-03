@@ -6,50 +6,34 @@
 #include "headers/accounts.h"
 
 
+
 int main(void) {
-    printf("Hello, World!\n");
-
-
-    user_count = 5;
-    
-
-    strcpy(user_data[3].username, "kareem");
-    strcpy(user_data[3].password, "pass");
-    user_data[3].is_admin = 0;
-  
-
-
-            int result;
-
-            //result = login();
-            // if(result == -1){
-
-            //     printf("incorrect username or password");
-            // }else if (result == 1){
-
-
-            //     printf("admin");
-
-            // }else if (result == 0){
-
-            //     printf("user");
-            // }
-
-            result = sign_up();
-
-            if(result == -1){
-                printf("user exists");
-            }else if (result == 0){
-                printf("sign up completed");
+     while(1){
+        main_menu:{
+            int option = display_combined_box(empty_array,0,start_menu,3);
+            if(option == 1){
+                goto login;
+            }else if(option == 2){
+                goto sign_up;
+            }else{
+                return 0;
             }
+        }
+
+        login:{
+            int option = display_combined_box(empty_array,0,login_screen,4);
+            if(option == 4) {
+                goto main_menu;
+            }
+        }
+
+        sign_up:{
+            int option = display_combined_box(empty_array,0,Sign_up_screen,4);
+            goto main_menu;
+        }
 
 
-
-
-        
-
-            
-
-   
+     }
     return 0;
 }
+
