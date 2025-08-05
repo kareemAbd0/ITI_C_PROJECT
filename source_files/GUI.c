@@ -4,54 +4,54 @@
 #include <windows.h>
 
 
-const char* start_menu[] = {
+ char* start_menu[] = {
     "Login",
     "Sign up",
     "Exit",
 };
 
-const char* login_screen[] = {
+ char* login_screen[] = {
     "Username:",
     "Password:",
     "Enter",
     "back",
 };
 
-const char* Sign_up_screen[] = {
+ char* Sign_up_screen[] = {
     "Username:",
     "Password:",
     "Repeat password:",
     "back",
 };
 
-const char* Admin_main_screen[] = {
+ char* Admin_main_screen[] = {
     "add book",
     "delete book",
     "Search",
     "back",
 };
 
-const char* User_main_screen[] = {
+ char* User_main_screen[] = {
     "borrow book",
     "return book",
     "Search",
     "back",
 };
 
-const char* Book_List_Screen[] = {
+ char* Book_List_Screen[] = {
     "book1",
     "book2",
     "book3",
     "back",
 };
 
-const char* Return_List_Screen[] = {
+ char* Return_List_Screen[] = {
     "book1",
     "book2",
     "book3",
     "back",
 };
-const char* book_properties_Screen[] = {
+ char* book_properties_Screen[] = {
     "ISBM:",
     "Title:",
     "Auther:",
@@ -62,11 +62,11 @@ const char* book_properties_Screen[] = {
 
 
 
-const char* empty_array[]={" "};
+ char* empty_array[]={" "};
 
 
 
-const char* Are_you_sure[] =
+ char* Are_you_sure[] =
 {
     "Yes",
     "No"
@@ -74,30 +74,30 @@ const char* Are_you_sure[] =
 
 /*************messages***************/
 
-const char* Hi_message_admin [] =
+ char* Hi_message_admin [] =
 {
     "Hi Admin",
     "          "
 } ;
-const char* Hi_message_user [] =
+ char* Hi_message_user [] =
 {
     "Hi user",
     "          "
 } ;
 
-const char* Are_You_sure_noselection [] =
+ char* Are_You_sure_noselection [] =
 {
     "You have three days.",
     "Are you sure?",
     "  ","   "
 } ;
-const char* Return_message[] = {
+ char* Return_message[] = {
     "thank you",
     "","","",
     "you are late",
 };
 
-const char* Books_number_message[] = {
+ char* Books_number_message[] = {
     "Number of books",
     "",""
 }; /*if books are added or deleted*/
@@ -121,7 +121,7 @@ void ShowConsoleCursor(int showFlag) {
 }
 
 // Combined static + interactive box
-int display_combined_box(const char* static_lines[], int static_count, const char* options[], int option_count) {
+int display_combined_box( char* static_lines[], int static_count,  char* options[], int option_count) {
     char ch;
     int pos = 1;
     system("cls");

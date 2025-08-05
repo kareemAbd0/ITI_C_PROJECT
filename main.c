@@ -4,6 +4,8 @@
 
 #include "headers/file_handler.h"
 #include "headers/accounts.h"
+#include "headers/book_ops.h"
+
 
 enum steps
 {
@@ -15,6 +17,12 @@ int main(void)
 { 
     int screen_variable = 1;
     int option = 0,flag = 0;
+
+    read_users_file();
+
+    read_books_file();
+
+  read_borrowed_books_file();
 
      while(1){
 
@@ -31,7 +39,7 @@ int main(void)
 
 
             }else if(option == 2){
-                system("cls");
+                 system("cls");
                  flag = sign_up();
                  screen_variable = start_screen;
             }else
@@ -72,15 +80,133 @@ int main(void)
          option = display_combined_box(Hi_message_user,2,User_main_screen,4);
             if(option == 1)
             {
-                //add book scenario
+                system("cls");
+                char titles[MAX_BOOKS][50];
+                char *title_ptrs[MAX_BOOKS];
+
+                for (int i = 0; i < book_count; i++) {
+                strcpy(titles[i], book_data[i].title);
+                title_ptrs[i] = titles[i];
+           }
+
+                int book_option = display_combined_box(Hi_message_user, 0, title_ptrs, book_count);
+                int book_flag =  borrow_book(book_data, book_count,book_data[book_option-1].title);
+                system("cls");
+                if(book_flag == 0)
+                {
+                    printf("You have three days.\n");
+                }
+                else if(book_flag == -1)
+                {
+                    printf("No copies available.\n");
+                }
+                else if(book_flag == -2)
+                {
+                    printf("Book not found.\n");
+                }
+                getch();
+                screen_variable = user_screen;
             }
             else if(option == 2)
             {
-                //delete book scenario
+                system("cls");
+                char titles[MAX_BOOKS][50];
+                char *title_ptrs[MAX_BOOKS];
+
+                for (int i = 0; i < book_count; i++) {
+                strcpy(titles[i], book_data[i].title);
+                title_ptrs[i] = titles[i];
+           }
+
+                int book_option = display_combined_box(Hi_message_user, 0, title_ptrs, book_count);
+                int book_flag =  return_book(book_data, book_count,book_data[book_option-1].title);
+                system("cls");
+                if(book_flag == 0)
+                {
+                    printf("You have three days.\n");
+                }
+                else if(book_flag == -1)
+                {
+                    printf("No copies available.\n");
+                }
+                else if(book_flag == -2)
+                {
+                    printf("Book not found.\n");
+                }
+                printf("%d",book_data[book_option-1].number_copies);
+                getch();
+                screen_variable = user_screen;
             }
             else if(option == 3)
             {
-                //search book scenario
+                // Search menu
+                char *search_options[] = {"Search by Title", "Search by Author", "Search by Year", "Back"};
+                int search_choice = display_combined_box(Hi_message_user, 0, search_options, 4);
+                if (search_choice == 4) {
+                    // Back
+                    continue;
+                }
+
+                char search_term[50];
+                int found_indices[MAX_BOOKS];
+                int found_count = 0;
+
+                system("cls");
+                printf("Enter search term: ");
+                fflush(stdout);
+                fgets(search_term, sizeof(search_term), stdin);
+                // Remove trailing newline
+                size_t len = strlen(search_term);
+                if (len > 0 && search_term[len-1] == '\n') search_term[len-1] = '\0';
+
+                if (search_choice == 1) { // By Title
+                    int idx = search_book_by_title(search_term, book_data, book_count);
+                    if (idx != -1) {
+                        found_indices[found_count++] = idx;
+                    }
+                } else if (search_choice == 2) { // By Author
+                    // search_book_by_author fills found_indices
+                    search_book_by_author(search_term, book_data, book_count, found_indices);
+                    // Count how many were found (stop at first -1 or until book_count)
+                    for (int i = 0; i < book_count; i++) {
+                        if (found_indices[i] >= 0 && found_indices[i] < book_count) found_count++;
+                        else break;
+                    }
+                } else if (search_choice == 3) { // By Year
+                    search_book_by_year(search_term, book_data, book_count, found_indices);
+                    for (int i = 0; i < book_count; i++) {
+                        if (found_indices[i] >= 0 && found_indices[i] < book_count) found_count++;
+                        else break;
+                    }
+                }
+
+                if (found_count == 0) {
+                    printf("No books found.\n");
+                    getch();
+                    continue;
+                }
+
+                // Prepare titles for display
+                char found_titles[MAX_BOOKS][50];
+                char *found_title_ptrs[MAX_BOOKS];
+                for (int i = 0; i < found_count; i++) {
+                    strcpy(found_titles[i], book_data[found_indices[i]].title);
+                    found_title_ptrs[i] = found_titles[i];
+                }
+
+                int sel = display_combined_box(Hi_message_user, 0, found_title_ptrs, found_count);
+                if (sel > 0 && sel <= found_count) {
+                    int idx = found_indices[sel-1];
+                    char selected_isbn[20];
+                    strcpy(selected_isbn, book_data[idx].isbn); // Remember ISBN
+                    system("cls");
+                    printf("Book Details:\n");
+                    printf("Title: %s\n", book_data[idx].title);
+                    printf("Author: %s\n", book_data[idx].author);
+                    printf("Year: %s\n", book_data[idx].published_year);
+                    printf("ISBN: %s\n", book_data[idx].isbn);
+                    getch();
+                }
             }
             else if(option == 4)
             {
