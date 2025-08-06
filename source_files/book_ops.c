@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "../headers/book_ops.h"
+#include "../headers/file_handler.h"
 //
 // Created by kareem on 8/2/25.
 //
@@ -9,8 +10,17 @@ int borrow_book(Book books[], int size, char title[]){
     for(int i=0;i< size;i++){
         if(strcmp(books[i].title, title)==0){
             if(books[i].number_copies>0){
-                books[i].number_copies--;
-                return 0;
+                if(borrowed_book_count < MAX_BORROWED_BOOKS)
+                {
+                    books[i].number_copies--;
+                    Borrowed_book br;
+                    strcpy(br.isbn,books[i].isbn);
+                    strcpy(br.borrower_id,current_user_id);
+                    br.borrowed_day = 1;
+                    borrowed_book_add(&br);
+                    write_books_file();
+                    return 0;
+                }
             }
             return -1;
         }
@@ -19,9 +29,20 @@ int borrow_book(Book books[], int size, char title[]){
 }
 
 int return_book(Book books[], int size, char title[]){
+    char isbn[20];
     for(int i=0;i< size;i++){
         if(strcmp(books[i].title, title)==0){
                 books[i].number_copies++;
+                strcpy(isbn,books[i].isbn);
+                break;
+        }
+    }
+    for(int i = 0; i < borrowed_book_count;i++)
+    {
+        if(strcmp(borrowed_books_data[i].isbn,isbn) == 0)
+        {
+            borrowed_book_delete(&borrowed_books_data[i]);
+            write_books_file();
             return 0;
         }
     }

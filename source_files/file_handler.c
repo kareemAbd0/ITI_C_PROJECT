@@ -20,6 +20,8 @@ Borrowed_book borrowed_books_data[MAX_BORROWED_BOOKS];
 
 char* convert_lower(char* str);
 
+char current_user_id[20];
+
 
 int user_add(Users* user)
 {

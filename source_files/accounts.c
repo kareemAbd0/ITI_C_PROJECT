@@ -35,11 +35,13 @@ int login()
             if (user_data[i].is_admin)
             {
                 //return 1 for admin
+                strcpy(current_user_id,user_data[i].id);
                 return 1;
             }
             else
             {
                 //return 0 for user
+                strcpy(current_user_id,user_data[i].id);
                 return 0;
             }
         }

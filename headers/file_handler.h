@@ -32,7 +32,7 @@ struct Borrowed_book {
 }typedef Borrowed_book;
 
 
-
+extern char current_user_id[20];
 extern int user_count;
 extern int book_count;
 extern int borrowed_book_count;
