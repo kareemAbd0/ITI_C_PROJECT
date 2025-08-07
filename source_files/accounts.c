@@ -1,5 +1,6 @@
 #include <string.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include "../headers/file_handler.h"
 #include "../headers/GUI.h"
 #include "../headers/accounts.h"
@@ -51,7 +52,9 @@ int login()
 }
 
 int sign_up() {
-
+    int prev_id;
+    int id;
+    char id_str[20];
     char username[STRING_SIZE], password[STRING_SIZE];
     printf("enter new username: \n");
     fgets(username, sizeof(username), stdin);
@@ -69,10 +72,18 @@ int sign_up() {
     fgets(password, sizeof(password), stdin);
     strip_newline(password);
 
-    strcpy(user_data[user_count].username, username);
-    strcpy(user_data[user_count].password, password);
-    user_data[user_count].is_admin = 0;
-    user_count++;
+    Users user;
+    strcpy(user.username,username);
+    strcpy(user.password,password);
+    prev_id = atoi(user_data[user_count -1].id);
+    id = prev_id + 100;
+    itoa(id, id_str, 10);
+    strcpy(user.id,id_str);
+    user.is_admin = 0;
+
+    user_add(&user);
+    
+
 
     return 0;
 }
