@@ -145,15 +145,11 @@ int main(void)
                 system("cls");
                 if (book_flag == 0)
                 {
-                    printf("You have three days.\n");
+                    printf("Thanks for returning the book.\n");
                 }
                 else if (book_flag == -1)
                 {
-                    printf("No copies available.\n");
-                }
-                else if (book_flag == -2)
-                {
-                    printf("Book not found.\n");
+                    printf("No Book Returned.\n");
                 }
                 getch();
                 screen_variable = user_screen;
