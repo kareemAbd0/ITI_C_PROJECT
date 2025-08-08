@@ -38,7 +38,9 @@ int main(void)
             if (option == 1)
             {
                 system("cls");
+                ShowConsoleCursor(1);
                 flag = login();
+                ShowConsoleCursor(0);
                 if (flag == 1)
                     screen_variable = admin_screen;
                 else if (flag == 0)
@@ -47,12 +49,15 @@ int main(void)
             else if (option == 2)
             {
                 system("cls");
+                 ShowConsoleCursor(1);
                 flag = sign_up();
+                 ShowConsoleCursor(0);
                 screen_variable = start_screen;
             }
             else
             {
-
+                system("cls");
+                ShowConsoleCursor(1);
                 return 0;
             }
             if (flag == -1)
@@ -69,7 +74,9 @@ int main(void)
             {
                 // add book scenario
                 system("cls");
+                ShowConsoleCursor(1);
                 int book_added = add_book();
+                ShowConsoleCursor(0);
                 if(book_added == 1)
                 {
                     printf("Book is added \n");
@@ -124,8 +131,11 @@ int main(void)
 
                 system("cls");
                 printf("Enter search term: ");
+                fflush(stdin);
                 fflush(stdout);
+                ShowConsoleCursor(1);
                 fgets(search_term, sizeof(search_term), stdin);
+                ShowConsoleCursor(0);
                 // Remove trailing newline
                 size_t len = strlen(search_term);
                 if (len > 0 && search_term[len - 1] == '\n')
@@ -168,6 +178,7 @@ int main(void)
                 {
                     printf("No books found.\n");
                     getch();
+                    found_count = 0;
                     continue;
                 }
 
@@ -193,6 +204,11 @@ int main(void)
                     printf("Year: %s\n", book_data[idx].published_year);
                     printf("ISBN: %s\n", book_data[idx].isbn);
                     getch();
+                }
+                found_count == 0;
+                for(int i = 0; i < MAX_BOOKS; i++)
+                {
+                    found_indices[i] = -1;
                 }
             }
             else if (option == 4)
@@ -289,8 +305,11 @@ int main(void)
 
                 system("cls");
                 printf("Enter search term: ");
+                fflush(stdin);
                 fflush(stdout);
+                ShowConsoleCursor(1);
                 fgets(search_term, sizeof(search_term), stdin);
+                ShowConsoleCursor(0);
                 // Remove trailing newline
                 size_t len = strlen(search_term);
                 if (len > 0 && search_term[len - 1] == '\n')
@@ -333,6 +352,7 @@ int main(void)
                 {
                     printf("No books found.\n");
                     getch();
+                    found_count == 0;
                     continue;
                 }
 
@@ -358,6 +378,11 @@ int main(void)
                     printf("Year: %s\n", book_data[idx].published_year);
                     printf("ISBN: %s\n", book_data[idx].isbn);
                     getch();
+                }
+                found_count == 0;
+                for(int i = 0; i < MAX_BOOKS; i++)
+                {
+                    found_indices[i] = -1;
                 }
             }
             else if (option == 4)
