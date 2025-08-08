@@ -11,7 +11,7 @@ int borrow_book(Book books[], int size,char title[]);
 int return_book(Book books[] ,int size,char title[]);
 
 //admin function, will add book to books runtime array
-int  add_book(Book books[],int size,  Book book);
+int  add_book();
 //admin function, will delete book from books runtime array
 int  delete_book(Book books[] ,int size,  char isbn[]);
 

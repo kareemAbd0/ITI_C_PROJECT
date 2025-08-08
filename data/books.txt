@@ -1,5 +1,5 @@
-9780131103627,koko,Brian W. Kernighan and Dennis M. Ritchie,1978,6
+9780131103627,koko,Brian W. Kernighan and Dennis M. Ritchie,1978,7
 9780596009205,Soso,Brian W. Kernighan and Dennis M. Ritchie,2005,9
-9780132350884,Clean Code,Robert C. Martin,2008,7
+9780132350884,Clean Code,Robert C. Martin,2008,8
 9780262033848,Introduction to Algorithms,Thomas H. Cormen et al.,2009,2
-9780201616224,The Pragmatic Programmer,Andrew Hunt and David Thomas,1999,3
+9780201616224,The Pragmatic Programmer,Andrew Hunt and David Thomas,1999,4
